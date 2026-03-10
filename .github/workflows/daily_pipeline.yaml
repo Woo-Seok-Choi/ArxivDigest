@@ -15,9 +15,9 @@ jobs:
   generate_and_send_digest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
     - name: Install dependencies
@@ -47,7 +47,7 @@ jobs:
       if: "${{ env.SENDGRID_API_KEY == '' && (env.MAIL_CONNECTION || env.MAIL_USERNAME != '' && env.MAIL_PASSWORD != '') }}"
       run: echo "DEFINED=true" >> $GITHUB_OUTPUT 
     - name: Send mail
-      uses: dawidd6/action-send-mail@v3
+      uses: dawidd6/action-send-mail@v4
       env:
         DEFINED: ${{ steps.check.outputs.DEFINED }}
       if: ${{ env.DEFINED == 'true' }}
