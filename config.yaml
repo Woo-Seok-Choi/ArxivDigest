@@ -7,14 +7,11 @@
 
 topic: "Computer Science"
 
-categories:
-  - "Artificial Intelligence"
-  - "Machine Learning"
-  - "Computational Engineering, Finance, and Science"
+categories: []
 
 # 관련도 점수 기준 (1~10). 이 점수 이상인 논문만 결과에 포함
 # 낮을수록 많은 논문, 높을수록 적지만 정확한 논문
-threshold: 1
+threshold: 4
 
 interest: >
   I am an aspiring AI Engineer with a strong physics background.
