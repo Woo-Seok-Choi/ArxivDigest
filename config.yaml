@@ -5,7 +5,7 @@
 # Fork한 저장소의 config.yaml 전체를 이 내용으로 교체하세요
 # ============================================================
 
-subject: "Computer Science"
+topic: "Computer Science"
 
 categories:
   - "Artificial Intelligence"
