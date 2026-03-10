@@ -38,18 +38,62 @@ def encode_prompt(query, prompt_papers):
 def post_process_chat_gpt_response(paper_data, response, threshold_score=8):
     selected_data = []
     if response is None:
-        return []
-    json_items = response['message']['content'].replace("\n\n", "\n").split("\n")
-    pattern = r"^\d+\. |\\"
-    import pprint
-    try:
-        score_items = [
-            json.loads(re.sub(pattern, "", line))
-            for line in json_items if "relevancy score" in line.lower()]
-    except Exception:
-        pprint.pprint([re.sub(pattern, "", line) for line in json_items if "relevancy score" in line.lower()])
-        raise RuntimeError("failed")
-    pprint.pprint(score_items)
+        return [], False
+    
+    content = response['message']['content']
+    
+    # ============================================================
+    # 수정된 파싱 로직: ```json 블록과 일반 JSON 모두 처리
+    # ============================================================
+    
+    # 방법 1: ```json ... ``` 블록에서 JSON 추출
+    json_blocks = re.findall(r'```json\s*\n?(.*?)\n?```', content, re.DOTALL)
+    
+    score_items = []
+    
+    if json_blocks:
+        # ```json 블록이 있는 경우 (최신 GPT 응답 형식)
+        for block in json_blocks:
+            block = block.strip()
+            try:
+                item = json.loads(block)
+                if "Relevancy score" in item or "relevancy score" in str(item).lower():
+                    score_items.append(item)
+            except json.JSONDecodeError:
+                continue
+    
+    if not score_items:
+        # 방법 2: 원본 방식 - 줄 단위 파싱 (이전 GPT 응답 형식)
+        json_items = content.replace("\n\n", "\n").split("\n")
+        pattern = r"^\d+\. |\\"
+        try:
+            score_items = [
+                json.loads(re.sub(pattern, "", line))
+                for line in json_items if "relevancy score" in line.lower()
+            ]
+        except Exception:
+            pass
+    
+    if not score_items:
+        # 방법 3: 전체 텍스트에서 JSON 객체 패턴 추출
+        json_pattern = r'\{[^{}]*"Relevancy score"[^{}]*\}'
+        matches = re.findall(json_pattern, content, re.IGNORECASE)
+        for match in matches:
+            try:
+                item = json.loads(match)
+                score_items.append(item)
+            except json.JSONDecodeError:
+                continue
+    
+    if not score_items:
+        print("WARNING: Could not parse any scores from response")
+        print("Response content:", content[:500])
+        return [], False
+    
+    # ============================================================
+    # 여기서부터는 원본 로직과 동일
+    # ============================================================
+    
     scores = []
     for item in score_items:
         temp = item["Relevancy score"]
@@ -57,14 +101,15 @@ def post_process_chat_gpt_response(paper_data, response, threshold_score=8):
             scores.append(int(temp.split("/")[0]))
         else:
             scores.append(int(temp))
+    
     if len(score_items) != len(paper_data):
         score_items = score_items[:len(paper_data)]
+        scores = scores[:len(paper_data)]
         hallucination = True
     else:
         hallucination = False
 
     for idx, inst in enumerate(score_items):
-        # if the decoding stops due to length, the last example is likely truncated so we discard it
         if scores[idx] < threshold_score:
             continue
         output_str = "Title: " + paper_data[idx]["title"] + "\n"
