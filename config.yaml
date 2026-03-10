@@ -1,89 +1,83 @@
 # ============================================================
 # ArxivDigest config.yaml
 # ------------------------------------------------------------
-# AI 시뮬레이션을 위한 모델 설계/학습 + 일반 AI 아키텍처 동향
-# Fork한 저장소의 config.yaml을 이 내용으로 교체하세요
+# 원본 src/action.py가 기대하는 flat 구조에 맞춤
+# Fork한 저장소의 config.yaml 전체를 이 내용으로 교체하세요
 # ============================================================
 
-topic:
-  name: "Computer Science"
-  categories:
-    - "Machine Learning"                                # cs.LG
-    - "Artificial Intelligence"                         # cs.AI
-    - "Computational Engineering, Finance, and Science" # cs.CE
+subject: "Computer Science"
 
-  interest: >
-    I am an aspiring AI Engineer with a strong physics background
-    (quantum mechanics, Lagrangian/Hamiltonian mechanics, perturbation theory).
-    I care about two things: (A) AI for scientific simulation, and
-    (B) general progress in AI model design and training.
+categories:
+  - "Artificial Intelligence"
+  - "Machine Learning"
+  - "Computational Engineering, Finance, and Science"
 
-
-    === (A) AI for Scientific Simulation — HIGH PRIORITY ===
-
-    Model architecture design for simulation:
-    - Foundation models for PDE solving and continuum dynamics
-      (e.g. Walrus by Polymathic AI, Poseidon, Aurora)
-    - Neural operators: Fourier Neural Operator (FNO), DeepONet,
-      and new operator-learning architectures
-    - Transformer architectures adapted for spatiotemporal data
-    - Graph neural networks for physical simulation (e.g. MeshGraphNets)
-    - Autoregressive vs diffusion-based approaches for dynamics prediction
-    - Equivariant neural networks that respect physical symmetries
-    - Architecture choices for multi-scale and multi-physics problems
-
-    Training methods for simulation models:
-    - Pre-training strategies across diverse physics domains
-    - Fine-tuning and transfer learning for new physical systems
-    - Training stability for long-horizon rollouts
-    - Data augmentation for physical systems (e.g. symmetry-based augmentation)
-    - Loss functions for physics (conservation laws, boundary conditions)
-    - Curriculum learning and progressive training for complex dynamics
-
-    Physics-informed approaches:
-    - Physics-Informed Neural Networks (PINNs) and their improvements
-    - Hybrid methods combining numerical solvers with neural networks
-    - Incorporating symmetries, conservation laws, and constraints into models
-    - Learned mesh refinement and adaptive resolution
+interest: >
+  I am an aspiring AI Engineer with a strong physics background
+  (quantum mechanics, Lagrangian/Hamiltonian mechanics, perturbation theory).
+  I care about two things: (A) AI for scientific simulation, and
+  (B) general progress in AI model design and training.
 
 
-    === (B) General AI Architecture & Training Progress — MEDIUM PRIORITY ===
+  === (A) AI for Scientific Simulation — HIGH PRIORITY ===
 
-    I want to stay current on foundational AI advances that could
-    eventually be applied to simulation problems:
+  Model architecture design for simulation:
+  - Foundation models for PDE solving and continuum dynamics
+    (e.g. Walrus by Polymathic AI, Poseidon, Aurora)
+  - Neural operators: Fourier Neural Operator (FNO), DeepONet,
+    and new operator-learning architectures
+  - Transformer architectures adapted for spatiotemporal data
+  - Graph neural networks for physical simulation (e.g. MeshGraphNets)
+  - Autoregressive vs diffusion-based approaches for dynamics prediction
+  - Equivariant neural networks that respect physical symmetries
+  - Architecture choices for multi-scale and multi-physics problems
 
-    Model architecture innovations:
-    - New transformer variants and attention mechanisms
-    - State-space models (Mamba, S4, and successors)
-    - Mixture-of-Experts and conditional computation
-    - Novel tokenization and embedding strategies
-    - Efficient architectures for long sequences
+  Training methods for simulation models:
+  - Pre-training strategies across diverse physics domains
+  - Fine-tuning and transfer learning for new physical systems
+  - Training stability for long-horizon rollouts
+  - Data augmentation for physical systems (e.g. symmetry-based)
+  - Loss functions for physics (conservation laws, boundary conditions)
+  - Curriculum learning and progressive training for complex dynamics
 
-    Training methodology advances:
-    - Scaling laws and efficient scaling strategies
-    - New optimization methods and learning rate schedules
-    - Pre-training objectives and self-supervised learning
-    - Reinforcement learning from human feedback (RLHF) and alternatives (DPO, etc.)
-    - Distributed training and parallelism strategies
-    - Training data curation and quality
-
-    Representation learning:
-    - Mechanistic interpretability of neural networks
-    - Feature learning, superposition, and disentanglement
-    - Emergent capabilities and phase transitions in training
-    - Understanding generalization in deep learning
+  Physics-informed approaches:
+  - Physics-Informed Neural Networks (PINNs) and improvements
+  - Hybrid methods combining numerical solvers with neural networks
+  - Incorporating symmetries, conservation laws into architectures
+  - Learned mesh refinement and adaptive resolution
 
 
-    === NOT INTERESTED ===
+  === (B) General AI Architecture & Training Progress — MEDIUM PRIORITY ===
 
-    - Papers focused solely on NLP applications (summarization, translation,
-      question answering) without architectural novelty
-    - Domain-specific applications (medical, legal, financial) unless they
-      introduce new model architectures or training methods
-    - Benchmark-chasing papers that only report marginal improvements
-      on leaderboards without insight into why
-    - Papers focused on specific non-English languages
-    - Prompt engineering and LLM tool-use papers without deeper
-      methodological contribution
-    - Pure reinforcement learning for games or robotics control
-      (unless the architecture or training method is novel)
+  Model architecture innovations:
+  - New transformer variants and attention mechanisms
+  - State-space models (Mamba, S4, and successors)
+  - Mixture-of-Experts and conditional computation
+  - Novel tokenization and embedding strategies
+  - Efficient architectures for long sequences
+
+  Training methodology advances:
+  - Scaling laws and efficient scaling strategies
+  - New optimization methods and learning rate schedules
+  - Pre-training objectives and self-supervised learning
+  - RLHF and alternatives (DPO, KTO, etc.)
+  - Distributed training and parallelism strategies
+
+  Representation learning:
+  - Mechanistic interpretability of neural networks
+  - Feature learning, superposition, and disentanglement
+  - Emergent capabilities and phase transitions in training
+
+
+  === NOT INTERESTED ===
+
+  - Papers focused solely on NLP applications (summarization, translation,
+    question answering) without architectural novelty
+  - Domain-specific applications (medical, legal, financial) unless they
+    introduce new model architectures or training methods
+  - Benchmark-chasing papers with marginal leaderboard improvements
+    without insight into why
+  - Papers focused on specific non-English languages
+  - Prompt engineering without deeper methodological contribution
+  - Pure reinforcement learning for games or robotics control
+    unless the architecture or training method is novel
